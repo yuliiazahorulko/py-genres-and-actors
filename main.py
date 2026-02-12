@@ -52,20 +52,15 @@ def main() -> QuerySet:
         )
 
     genre_to_delete = ["Action"]
-    actor_to_delete = [("Scarlett", "")]
+    actor_first_name_to_delete = "Scarlett"
     for genre in genre_to_delete:
         Genre.objects.filter(
             name=genre
         ).delete()
-    for actor in actor_to_delete:
-        if actor[0] != "":
-            Actor.objects.filter(
-                first_name=actor[0]
-            ).delete()
-        if actor[1] != "":
-            Actor.objects.filter(
-                last_name=actor[1]
-            ).delete()
+
+    Actor.objects.filter(
+        first_name=actor_first_name_to_delete
+    ).delete()
 
     return Actor.objects.filter(
         last_name="Smith"
