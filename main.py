@@ -12,32 +12,31 @@ def main() -> QuerySet:
         "Dramma"
     ]
     actors = [
-        "George Klooney",
-        "Kianu Reaves",
-        "Scarlett Keegan",
-        "Will Smith",
-        "Jaden Smith",
-        "Scarlett Johansson"
+        ("George", "Klooney"),
+        ("Kianu", "Reaves"),
+        ("Scarlett", "Keegan"),
+        ("Will", "Smith"),
+        ("Jaden", "Smith"),
+        ("Scarlett", "Johansson")
     ]
-    actors_as_tuples = [(actor.split(" ")[0], actor.split(" ")[1]) for actor in actors]
 
     for genre in genres:
         Genre.objects.create(
             name=genre
         )
 
-    for actor in actors_as_tuples:
+    for actor in actors:
         Actor.objects.create(
             first_name=actor[0],
             last_name=actor[1]
         )
 
     genres_to_update = {
-        'Dramma': "Drama"
+        "Dramma": "Drama"
     }
     actors_to_update = {
-        ("George", "Klooney"): ["George", "Clooney"],
-        ("Kianu", "Reaves"): ["Keanu", "Reeves"]
+        ("George", "Klooney"): ("George", "Clooney"),
+        ("Kianu", "Reaves"): ("Keanu", "Reeves")
     }
 
     for genre_key, genre_value in genres_to_update.items():
@@ -54,7 +53,7 @@ def main() -> QuerySet:
         )
 
     genre_to_delete = ["Action"]
-    actor_to_delete = [("Scarlett", ""),]
+    actor_to_delete = [("Scarlett", "")]
     for genre in genre_to_delete:
         Genre.objects.filter(
             name=genre
@@ -72,7 +71,3 @@ def main() -> QuerySet:
     return Actor.objects.filter(
         last_name="Smith"
     ).order_by("first_name")
-
-
-if __name__ == "__main__":
-    main()
